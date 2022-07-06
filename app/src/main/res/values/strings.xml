@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Notes</string>
+    <string name="app_name">Listas</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="next_button">Next</string>
+    <string name="delete_button">Delete</string>
+    <string name="save_button">Save</string>
+    <string name="title_label">Title</string>
+    <string name="description_label">Description</string>
+    <string name="new_item">New Item</string>
 </resources>
