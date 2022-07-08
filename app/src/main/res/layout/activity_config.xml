@@ -21,7 +21,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="@string/provider_conf_title" />
+            android:text="@string/local_data_title" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/localDataFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/active">
+        </com.google.android.material.switchmaterial.SwitchMaterial>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/firebase_data_title" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/firebaseDataFlag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/active">
+        </com.google.android.material.switchmaterial.SwitchMaterial>
 
 
     </LinearLayout>
