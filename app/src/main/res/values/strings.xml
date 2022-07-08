@@ -4,7 +4,16 @@
     <string name="next_button">Next</string>
     <string name="delete_button">Delete</string>
     <string name="save_button">Save</string>
+
+    <!-- ITEM LAYOUT -->
     <string name="title_label">Title</string>
     <string name="description_label">Description</string>
     <string name="new_item">New Item</string>
+
+    <!-- CONFIG LAYOUT -->
+    <string name="visual_conf_title">Visual Configuration</string>
+    <string name="provider_conf_title">Data Provider Configuration</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

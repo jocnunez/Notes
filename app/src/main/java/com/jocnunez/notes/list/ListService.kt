@@ -2,7 +2,7 @@ package com.jocnunez.notes.list
 
 import android.content.Context
 import android.util.Log
-import com.jocnunez.notes.item.Item
+import com.jocnunez.notes.list.item.Item
 import org.json.JSONArray
 import java.io.IOException
 

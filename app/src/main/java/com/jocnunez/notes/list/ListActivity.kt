@@ -2,14 +2,12 @@ package com.jocnunez.notes.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.jocnunez.notes.R
-import com.jocnunez.notes.item.Item
+import com.jocnunez.notes.list.item.Item
 
 class ListActivity : AppCompatActivity() {
     var list: MutableList<Item> = mutableListOf()

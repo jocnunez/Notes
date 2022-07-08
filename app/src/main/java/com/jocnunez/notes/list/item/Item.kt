@@ -1,4 +1,4 @@
-package com.jocnunez.notes.item
+package com.jocnunez.notes.list.item
 
 import java.text.SimpleDateFormat
 import java.time.Instant
