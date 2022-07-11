@@ -7,14 +7,19 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.jocnunez.notes.R
+import com.jocnunez.notes.databinding.ActivityListBinding
 import com.jocnunez.notes.list.item.Item
 
 class ListActivity : AppCompatActivity() {
+    private lateinit var _binding:ActivityListBinding
+    private val binding get() = _binding
+
     var list: MutableList<Item> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        _binding = ActivityListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Load list
         val listLayout = findViewById<LinearLayout>(R.id.listLayout)
