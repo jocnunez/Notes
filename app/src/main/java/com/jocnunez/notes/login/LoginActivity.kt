@@ -2,13 +2,11 @@ package com.jocnunez.notes.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.FrameLayout
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityLoginBinding
-import com.jocnunez.notes.menu.MenuItems
+import com.jocnunez.notes.menu.MenuHandler
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var _binding:ActivityLoginBinding
@@ -34,7 +32,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        MenuItems().itemHandler(item)
+        var menuHandler = MenuHandler(this,"login")
+        menuHandler.itemHandler(item)
+        if (menuHandler.intent != null) {
+            startActivity(menuHandler.intent)
+        }
         return super.onOptionsItemSelected(item)
     }
 

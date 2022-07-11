@@ -3,12 +3,15 @@ package com.jocnunez.notes.list
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityListBinding
 import com.jocnunez.notes.list.item.Item
+import com.jocnunez.notes.menu.MenuHandler
 
 class ListActivity : AppCompatActivity() {
     private lateinit var _binding:ActivityListBinding
@@ -37,6 +40,23 @@ class ListActivity : AppCompatActivity() {
             fragmentTransaction.commit()
         }*/
     }
+
+
+    // Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var menuHandler = MenuHandler(this,"list")
+        menuHandler.itemHandler(item)
+        if (menuHandler.intent != null) {
+            startActivity(menuHandler.intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     private fun addListToLayout(layout: LinearLayout) {
         list.forEach {
