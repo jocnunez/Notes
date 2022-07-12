@@ -3,9 +3,7 @@ package com.jocnunez.notes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
+import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.databinding.ActivityMainBinding
 import com.jocnunez.notes.list.ListActivity
 import com.jocnunez.notes.login.LoginActivity
@@ -19,14 +17,15 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val config = ConfigService()
+
         // TODO: Check configuration and pass parameters to Login Activity if necessary
         val isLogged = false
         if (isLogged) {
             startActivity(Intent(this, ListActivity::class.java).apply { })
         } else {
-            // TODO: Is firebase or local?
             val intent = Intent(this, LoginActivity::class.java)
-            intent.putExtra("isLocal", false)
+            intent.putExtra("isLocal", config.isLocal())
             startActivity(intent)
         }
     }
