@@ -20,7 +20,7 @@ class JsonActivity : AppCompatActivity() {
     }
 
     fun createJsonHandler() {
-        val jsonService = JsonService()
+        val jsonService = JsonService(this)
         jsonService.createJsonFile(
             binding.jsonName.text.toString(),
             binding.exampleCheck.isChecked

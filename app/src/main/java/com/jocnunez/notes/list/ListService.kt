@@ -13,19 +13,24 @@ class ListService constructor(context: Context) {
     init {
         try {
             val json = JSONArray(context.assets.open("example.json").bufferedReader().use { it.readText() })
-            for (i in 0 until json.length()) {
-                val jsonObject = json.getJSONObject(i)
-                val item = Item(
-                    jsonObject.optString("title"),
-                    jsonObject.optString("description"),
-                    jsonObject.getLong("creationDate"),
-                    jsonObject.getBoolean("check")
-                )
-                list.add(item)
-            }
-
+            list = parseJson(json)
         } catch (ioException: IOException) {
             Log.d("Error", ioException.toString())
         }
+    }
+
+    fun parseJson(json: JSONArray):MutableList<Item> {
+        var list = mutableListOf<Item>()
+        for (i in 0 until json.length()) {
+            val jsonObject = json.getJSONObject(i)
+            val item = Item(
+                jsonObject.optString("title"),
+                jsonObject.optString("description"),
+                jsonObject.getLong("creationDate"),
+                jsonObject.getBoolean("check")
+            )
+            list.add(item)
+        }
+        return list
     }
 }
