@@ -1,7 +1,6 @@
 package com.jocnunez.notes.json
 
 import android.content.Context
-import android.util.Log
 import com.jocnunez.notes.list.ListService
 import com.jocnunez.notes.list.item.Item
 import org.json.JSONArray
