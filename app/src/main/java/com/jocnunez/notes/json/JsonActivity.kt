@@ -12,15 +12,18 @@ class JsonActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     private lateinit var jsonListAdapter: JsonListAdapter
-    private lateinit var jsonList: List<JsonItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityJsonBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        jsonList = JsonService(this).readFileList()
-        jsonListAdapter = JsonListAdapter(jsonList) { jsonItem -> clickHandler(jsonItem) }
+        val jsonList = JsonService(this).readFileList()
+        jsonListAdapter = JsonListAdapter(
+            jsonList,
+            { jsonItem, pos -> itemHandler(jsonItem, pos) },
+            { jsonItem, pos -> deleteHandler(jsonItem, pos) }
+        )
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
         binding.fileListContainer.layoutManager = layoutManager
@@ -36,8 +39,19 @@ class JsonActivity : AppCompatActivity() {
         _binding = null
     }
 
-    private fun clickHandler(jsonItem: JsonItem) {
-        Log.d("Debug", "ITEM: " + jsonItem.name)
+    private fun itemHandler(jsonItem: JsonItem, pos: Int) {
+        val jsonService = JsonService(this)
+        val prev = jsonService.getSelectedIndex(jsonListAdapter.jsonList)
+        jsonService.selectFile(jsonListAdapter.jsonList, jsonItem)
+        jsonListAdapter.notifyItemChanged(prev)
+        jsonListAdapter.notifyItemChanged(pos)
+    }
+
+    private fun deleteHandler(jsonItem: JsonItem, pos: Int) {
+        val jsonService = JsonService(this)
+        jsonService.deleteFile(jsonItem.name)
+        jsonListAdapter.jsonList = jsonService.readFileList()
+        jsonListAdapter.notifyItemRemoved(pos)
     }
 
     private fun createJsonHandler() {
@@ -46,5 +60,9 @@ class JsonActivity : AppCompatActivity() {
             binding.jsonName.text.toString(),
             binding.exampleCheck.isChecked
         )
+        binding.jsonName.setText("")
+        val lastPos = jsonListAdapter.itemCount
+        jsonListAdapter.jsonList = jsonService.readFileList()
+        jsonListAdapter.notifyItemInserted(lastPos)
     }
 }

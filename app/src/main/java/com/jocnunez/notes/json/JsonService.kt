@@ -50,8 +50,18 @@ class JsonService(val context: Context) {
 
     fun deleteFile(fileName: String) {
         val folder = File(context.filesDir, folderName)
-        val file = File(folder, fileName)
+        val file = File(folder, fileName + fileExtension)
         file.delete()
+    }
+
+    fun selectFile(list: List<JsonItem>, item:JsonItem) {
+        list.forEach {
+            it.selected = it.name == item.name
+        }
+    }
+
+    fun getSelectedIndex(list: List<JsonItem>):Int {
+        return list.indexOfFirst { jsonItem -> jsonItem.selected }
     }
 
     private fun getListFromExample(): MutableList<Item> {
