@@ -1,11 +1,13 @@
 package com.jocnunez.notes.json
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.jocnunez.notes.list.ListService
 import com.jocnunez.notes.list.item.Item
 import org.json.JSONArray
 import java.io.File
+import java.text.FieldPosition
 
 class JsonService(val context: Context) {
     private val folderName = "jsons"
@@ -21,6 +23,7 @@ class JsonService(val context: Context) {
         //TODO validate name, validate if file exists ...
         val folder = File(context.filesDir, folderName)
         folder.mkdir()
+        Log.d("Debug", "PATH: "+folder.path+" FILESDIR: "+context.filesDir )
 
         val file = File(folder, name + fileExtension)
         file.createNewFile()
@@ -30,7 +33,7 @@ class JsonService(val context: Context) {
         file.writeText(json)
     }
 
-    fun getFileList():MutableList<JsonItem> {
+    fun readFileList():List<JsonItem> {
         val files = mutableListOf<JsonItem>()
 
         val folder = File(context.filesDir, folderName)
@@ -41,6 +44,14 @@ class JsonService(val context: Context) {
             }
         }
         return files
+    }
+
+    fun updateFile(jsonFile: JsonFile) {}
+
+    fun deleteFile(fileName: String) {
+        val folder = File(context.filesDir, folderName)
+        val file = File(folder, fileName)
+        file.delete()
     }
 
     private fun getListFromExample(): MutableList<Item> {
