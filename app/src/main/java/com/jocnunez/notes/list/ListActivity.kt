@@ -60,7 +60,7 @@ class ListActivity : AppCompatActivity() {
 
     private fun addListToLayout(layout: LinearLayout) {
         list.forEach {
-            var itemView = LayoutInflater.from(this).inflate(R.layout.item_layout, null, false)
+            var itemView = LayoutInflater.from(this).inflate(R.layout.item_list, null, false)
             itemView.findViewById<CheckBox>(R.id.checkbox).isChecked = it.check
             itemView.findViewById<TextView>(R.id.title).text = it.title
             itemView.findViewById<TextView>(R.id.description).text = it.description
