@@ -3,14 +3,17 @@ package com.jocnunez.notes.json
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityJsonBinding
+import com.jocnunez.notes.menu.MenuHandler
 
 class JsonActivity : AppCompatActivity() {
     private var _binding: ActivityJsonBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var jsonListAdapter: JsonListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,21 @@ class JsonActivity : AppCompatActivity() {
         }
     }
 
+    // Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val menuHandler = MenuHandler(this,"json")
+        menuHandler.itemHandler(item)
+        if (menuHandler.intent != null) {
+            startActivity(menuHandler.intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -49,7 +67,7 @@ class JsonActivity : AppCompatActivity() {
 
     private fun deleteHandler(jsonItem: JsonItem, pos: Int) {
         val jsonService = JsonService(this)
-        jsonService.deleteFile(jsonItem.name)
+        jsonService.deleteFile(jsonItem)
         jsonListAdapter.jsonList = jsonService.readFileList()
         jsonListAdapter.notifyItemRemoved(pos)
     }

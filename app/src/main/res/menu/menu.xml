@@ -13,6 +13,10 @@
                 android:title="Login"
                 app:showAsAction="never" />
             <item
+                android:id="@+id/jsonMenu"
+                android:title="Json"
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/listMenu"
                 android:title="List"
                 app:showAsAction="never" />

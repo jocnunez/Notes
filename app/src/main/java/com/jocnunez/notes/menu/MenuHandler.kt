@@ -2,10 +2,10 @@ package com.jocnunez.notes.menu
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.MenuItem
 import com.jocnunez.notes.R
 import com.jocnunez.notes.config.ConfigActivity
+import com.jocnunez.notes.json.JsonActivity
 import com.jocnunez.notes.list.ListActivity
 import com.jocnunez.notes.login.LoginActivity
 
@@ -15,6 +15,7 @@ class MenuHandler constructor(val context:Context, val current: String) {
     fun itemHandler(item: MenuItem) {
         when (item.itemId) {
             R.id.configMenu -> openConfig(current)
+            R.id.jsonMenu -> openJson(current)
             R.id.listMenu -> openList(current)
             R.id.loginMenu -> openLogin(current)
         }
@@ -25,6 +26,14 @@ class MenuHandler constructor(val context:Context, val current: String) {
             intent = null
         } else {
             intent = Intent(context, ConfigActivity::class.java)
+        }
+    }
+
+    private fun openJson(current: String) {
+        if (current == "json") {
+            intent = null
+        } else {
+            intent = Intent(context, JsonActivity::class.java)
         }
     }
 

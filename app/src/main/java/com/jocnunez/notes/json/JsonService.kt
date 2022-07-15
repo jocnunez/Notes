@@ -3,11 +3,11 @@ package com.jocnunez.notes.json
 import android.content.Context
 import android.util.Log
 import com.google.gson.GsonBuilder
+import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.list.ListService
 import com.jocnunez.notes.list.item.Item
 import org.json.JSONArray
 import java.io.File
-import java.text.FieldPosition
 
 class JsonService(val context: Context) {
     private val folderName = "jsons"
@@ -35,11 +35,16 @@ class JsonService(val context: Context) {
 
     fun readFileList():List<JsonItem> {
         val files = mutableListOf<JsonItem>()
+        val configService = ConfigService(context)
+        val defaultFileName = configService.getDefaultFileName()
 
         val folder = File(context.filesDir, folderName)
         folder.walk().forEach {
             if (!it.isDirectory) {
-                val item = JsonItem(it.nameWithoutExtension)
+                val item = JsonItem(
+                    it.nameWithoutExtension,
+                    it.nameWithoutExtension == defaultFileName
+                )
                 files.add(item)
             }
         }
@@ -48,13 +53,19 @@ class JsonService(val context: Context) {
 
     fun updateFile(jsonFile: JsonFile) {}
 
-    fun deleteFile(fileName: String) {
+    fun deleteFile(json: JsonItem) {
         val folder = File(context.filesDir, folderName)
-        val file = File(folder, fileName + fileExtension)
+        val file = File(folder, json.name + fileExtension)
         file.delete()
+        if (json.selected) {
+            val configService = ConfigService(context)
+            configService.setDefaultFileName("")
+        }
     }
 
     fun selectFile(list: List<JsonItem>, item:JsonItem) {
+        val configService = ConfigService(context)
+        configService.setDefaultFileName(item.name)
         list.forEach {
             it.selected = it.name == item.name
         }
