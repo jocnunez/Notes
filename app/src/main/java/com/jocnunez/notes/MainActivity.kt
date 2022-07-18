@@ -3,11 +3,15 @@ package com.jocnunez.notes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.databinding.ActivityMainBinding
 import com.jocnunez.notes.json.JsonActivity
 import com.jocnunez.notes.list.ListActivity
 import com.jocnunez.notes.login.LoginActivity
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding:ActivityMainBinding
@@ -20,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         val config = ConfigService(this)
 
-        if (config.getFirebaseActive()) {
-            // TODO gestionar que hacer si está activo el modo firebase
+        if (!config.getFirebaseActive()) {
+            startActivity(Intent(this, LoginActivity::class.java))
         } else {
             val defaultFile = config.getDefaultFileName()
             if (defaultFile.isNullOrBlank()) {
@@ -32,5 +36,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+
+        val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
+        val reference = database.getReference("message")
+        reference.setValue("Goodbye World!")
     }
 }

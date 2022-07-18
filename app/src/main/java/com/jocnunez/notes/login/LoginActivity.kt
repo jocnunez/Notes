@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityLoginBinding
+import com.jocnunez.notes.firebase.FirebaseService
 import com.jocnunez.notes.menu.MenuHandler
 
 class LoginActivity : AppCompatActivity() {
@@ -17,12 +18,7 @@ class LoginActivity : AppCompatActivity() {
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val isLocal = intent.getBooleanExtra("isLocal", true)
-        if (isLocal) {
-            initLocalJSON()
-        } else {
-            initFirebase()
-        }
+        initFirebase()
     }
 
     // Menu
@@ -40,15 +36,15 @@ class LoginActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
     // Firebase
-    fun initFirebase() {
+    private fun initFirebase() {
+        val firebaseService = FirebaseService(this)
+    }
+
+
+    fun loadFragmentFirebase() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(binding.loginContainer.id, LoginFormFragment())
         transaction.commit()
-    }
-
-    fun initLocalJSON() {
-
     }
 }
