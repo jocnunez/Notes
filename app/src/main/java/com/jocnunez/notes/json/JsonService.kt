@@ -2,9 +2,11 @@ package com.jocnunez.notes.json
 
 import android.content.Context
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.list.ListService
+import com.jocnunez.notes.list.ToDoList
 import com.jocnunez.notes.list.item.Item
 import org.json.JSONArray
 import java.io.File
@@ -14,12 +16,6 @@ class JsonService(val context: Context) {
     private val fileExtension = ".json"
 
     fun createJsonFile(name: String, copyExample: Boolean) {
-        var list = mutableListOf<Item>()
-
-        if (copyExample) {
-            list = getListFromExample()
-        }
-
         //TODO validate name, validate if file exists ...
         val folder = File(context.filesDir, folderName)
         folder.mkdir()
@@ -28,8 +24,12 @@ class JsonService(val context: Context) {
         val file = File(folder, name + fileExtension)
         file.createNewFile()
 
-        val gson = GsonBuilder().setPrettyPrinting().create()
-        val json = gson.toJson(list)
+        var json = "[]"
+        if (copyExample) {
+            val gson = GsonBuilder().setPrettyPrinting().create()
+            val toDoList = getListFromExample()
+            json = gson.toJson(toDoList.list)
+        }
         file.writeText(json)
     }
 
@@ -75,12 +75,18 @@ class JsonService(val context: Context) {
         return list.indexOfFirst { jsonItem -> jsonItem.selected }
     }
 
-    private fun getListFromExample(): MutableList<Item> {
+    fun getSelectedFile():File {
+        val configService = ConfigService(context)
+        val fileName = configService.getDefaultFileName() + fileExtension
+        val folder = File(context.filesDir, folderName)
+        return File(folder, fileName)
+    }
+
+    private fun getListFromExample(): ToDoList {
         val file = context.assets.open("example.json")
-        val jsonArray = JSONArray(file.bufferedReader().use {
-            it.readText()
-        })
-        val list = ListService(context).parseJson(jsonArray)
+        val json = file.bufferedReader().use { it.readText() }
+        val gson = GsonBuilder().create()
+        val list = gson.fromJson(json, ToDoList::class.java)
         return list
     }
 }

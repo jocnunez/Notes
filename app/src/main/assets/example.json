@@ -1,26 +1,48 @@
 [
   {
-    "title": "Tarea1",
-    "description": "Cosas que tengo que hacer en la tarea 1",
+    "title": "Lista de la compra",
+    "description": "Ejemplo de tarea de tipo Checklist",
     "check": false,
+    "type": "checklist",
+    "list": [
+      { "title": "Pan", "check": false },
+      { "title": "Tomates", "check": false },
+      { "title": "Aceite", "check": true }
+    ],
+    "labels": [],
+    "scheduledDate": "",
+    "modificationDate": "",
     "creationDate": 1657089847702
   },
   {
-    "title": "Tarea2",
-    "description": "Cosas que tengo que hacer en la tarea2",
+    "title": "Cita en el médico",
+    "description": "Ejemplo de tarea básica con fecha programada",
     "check": true,
+    "type": "basic",
+    "scheduledDate": 1660732200000,
+    "modificationDate": "",
     "creationDate": 1657089877175
   },
   {
-    "title": "Tarea3",
-    "description": "Cosas que tengo que hacer en la tarea3",
+    "title": "Nota de voz",
+    "description": "Ejemplo de tarea de tipo Media",
     "check": false,
+    "type": "media",
+    "media": "file_example.mp3",
+    "labels": [],
+    "scheduledDate": "",
+    "modificationDate": "",
     "creationDate": 1657089895375
   },
   {
-    "title": "Tarea4",
-    "description": "Cosas que tengo que hacer en la tarea4",
+    "title": "Visitar Las Palmas",
+    "description": "Ejemplo de tarea básica con geolocalización",
     "check": false,
+    "type": "basic",
+    "location": "28.16049620960289, -15.43497414106162",
+    "labels": [],
+    "scheduledDate": "",
+    "modificationDate": "",
     "creationDate": 1657089912159
   }
 ]

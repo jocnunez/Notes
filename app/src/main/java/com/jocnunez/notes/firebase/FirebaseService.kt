@@ -1,6 +1,7 @@
 package com.jocnunez.notes.firebase
 
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -14,8 +15,8 @@ class FirebaseService(val context: Context) {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
-    private lateinit var oneTapClient: SignInClient
-    private lateinit var signInRequest: BeginSignInRequest
+    lateinit var oneTapClient: SignInClient
+    lateinit var signInRequest: BeginSignInRequest
 
     init {
         signIn()
@@ -23,6 +24,7 @@ class FirebaseService(val context: Context) {
     }
 
     private fun signIn() {
+//        Log.d("Debug", "LOG IN: " + context.getString(R.string.firebase_id))
         oneTapClient = Identity.getSignInClient(context)
         signInRequest = BeginSignInRequest.builder()
             .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
@@ -31,12 +33,12 @@ class FirebaseService(val context: Context) {
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
-                    .setServerClientId(R.string.firebase_id.toString())
+                    .setServerClientId(context.getString(R.string.firebase_id))
                     .setFilterByAuthorizedAccounts(true)
                     .build())
             .setAutoSelectEnabled(true)
             .build()
 
-        oneTapClient.beginSignIn(signInRequest)
+        //oneTapClient.beginSignIn(signInRequest)
     }
 }
