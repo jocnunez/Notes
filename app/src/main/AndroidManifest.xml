@@ -13,7 +13,7 @@
             android:name=".views.listmanagement.JsonActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".views.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".views.config.ConfigActivity"

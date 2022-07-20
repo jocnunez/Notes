@@ -1,4 +1,4 @@
-package com.jocnunez.notes.login
+package com.jocnunez.notes.views.login
 
 import android.app.Activity
 import android.content.Intent
@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityLoginBinding
@@ -77,12 +75,5 @@ class LoginActivity : AppCompatActivity() {
     // Firebase
     private fun initFirebase() {
         val firebaseService = FirebaseService(this)
-    }
-
-
-    fun loadFragmentFirebase() {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(binding.loginContainer.id, LoginFormFragment())
-        transaction.commit()
     }
 }

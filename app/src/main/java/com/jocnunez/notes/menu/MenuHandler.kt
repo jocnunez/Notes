@@ -7,7 +7,7 @@ import com.jocnunez.notes.R
 import com.jocnunez.notes.views.config.ConfigActivity
 import com.jocnunez.notes.views.listmanagement.JsonActivity
 import com.jocnunez.notes.list.ListActivity
-import com.jocnunez.notes.login.LoginActivity
+import com.jocnunez.notes.views.login.LoginActivity
 
 class MenuHandler constructor(val context:Context, val current: String) {
     var intent:Intent? = null

@@ -7,7 +7,7 @@ import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.databinding.ActivityMainBinding
 import com.jocnunez.notes.views.listmanagement.JsonActivity
 import com.jocnunez.notes.list.ListActivity
-import com.jocnunez.notes.login.LoginActivity
+import com.jocnunez.notes.views.login.LoginActivity
 import com.jocnunez.notes.storage.StorageTypes
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         val config = ConfigService(this)
 
-        when (config.getSelectedStorage()) {
+        //when (config.getSelectedStorage()) {
+        when (StorageTypes.FIREBASE) {
             StorageTypes.FIREBASE ->
                 startActivity(Intent(this, LoginActivity::class.java))
             else -> {
