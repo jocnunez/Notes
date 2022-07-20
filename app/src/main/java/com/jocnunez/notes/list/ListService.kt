@@ -1,16 +1,14 @@
 package com.jocnunez.notes.list
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.jocnunez.notes.json.JsonService
 import com.jocnunez.notes.list.item.Item
-import org.json.JSONArray
-import java.io.IOException
 
 class ListService constructor(val context: Context) {
 
-    lateinit var list:ToDoList
+    lateinit var toDoList:ToDoList
 
     init {
         getListFromFile()
@@ -21,6 +19,8 @@ class ListService constructor(val context: Context) {
         val json = file.inputStream().bufferedReader().use { it.readText() }
 
         val gson = GsonBuilder().create()
-        list = gson.fromJson(json, ToDoList::class.java)
+        val itemType = object : TypeToken<List<Item>>() {}.type
+        val list = gson.fromJson<List<Item>>(json, itemType)
+        toDoList = ToDoList(file.nameWithoutExtension, list)
     }
 }

@@ -24,7 +24,7 @@ class ListActivity : AppCompatActivity() {
         _binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val list = ListService(this).list
+        val list = ListService(this).toDoList.list
         val listAdapter = ListAdapter(
             list,
             { item, pos -> moveHandler(item, pos) },

@@ -25,7 +25,7 @@ class ListAdapter (
                 binding.title.text = this.title
                 binding.description.text = this.description
                 binding.checkbox.isChecked = this.check
-                binding.date.text = this.getFormattedDate()
+                binding.date.text = this.getCreationDate()
                 binding.editButton.setOnClickListener { editHandler(this, position) }
             }
         }

@@ -51,7 +51,7 @@ class JsonService(val context: Context) {
         return files
     }
 
-    fun updateFile(jsonFile: JsonFile) {}
+    fun updateFile() {}
 
     fun deleteFile(json: JsonItem) {
         val folder = File(context.filesDir, folderName)
