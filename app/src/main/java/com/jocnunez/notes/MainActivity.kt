@@ -3,16 +3,12 @@ package com.jocnunez.notes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.databinding.ActivityMainBinding
-import com.jocnunez.notes.json.JsonActivity
+import com.jocnunez.notes.views.listmanagement.JsonActivity
 import com.jocnunez.notes.list.ListActivity
 import com.jocnunez.notes.login.LoginActivity
 import com.jocnunez.notes.storage.StorageTypes
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityMainBinding

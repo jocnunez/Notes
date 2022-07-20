@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Notes">
         <activity
-            android:name=".json.JsonActivity"
+            android:name=".views.listmanagement.JsonActivity"
             android:exported="false" />
         <activity
             android:name=".login.LoginActivity"

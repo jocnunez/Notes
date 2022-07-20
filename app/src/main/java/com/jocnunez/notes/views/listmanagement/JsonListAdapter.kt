@@ -1,9 +1,10 @@
-package com.jocnunez.notes.json
+package com.jocnunez.notes.views.listmanagement
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.databinding.ItemJsonListBinding
+import com.jocnunez.notes.json.JsonItem
 
 class JsonListAdapter(
     var jsonList: List<JsonItem>,

@@ -1,14 +1,15 @@
-package com.jocnunez.notes.json
+package com.jocnunez.notes.views.listmanagement
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityJsonBinding
+import com.jocnunez.notes.json.JsonItem
+import com.jocnunez.notes.json.JsonService
 import com.jocnunez.notes.menu.MenuHandler
 
 class JsonActivity : AppCompatActivity() {
