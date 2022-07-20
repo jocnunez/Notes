@@ -1,4 +1,4 @@
-package com.jocnunez.notes.config
+package com.jocnunez.notes.views.config
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -25,7 +25,7 @@ class ConfigActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var menuHandler = MenuHandler(this,"config")
+        val menuHandler = MenuHandler(this,"config")
         menuHandler.itemHandler(item)
         if (menuHandler.intent != null) {
             startActivity(menuHandler.intent)

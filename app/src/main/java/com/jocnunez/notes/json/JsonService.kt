@@ -2,13 +2,10 @@ package com.jocnunez.notes.json
 
 import android.content.Context
 import android.util.Log
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.jocnunez.notes.config.ConfigService
-import com.jocnunez.notes.list.ListService
-import com.jocnunez.notes.list.ToDoList
 import com.jocnunez.notes.list.item.Item
-import org.json.JSONArray
 import java.io.File
 
 class JsonService(val context: Context) {
@@ -27,8 +24,9 @@ class JsonService(val context: Context) {
         var json = "[]"
         if (copyExample) {
             val gson = GsonBuilder().setPrettyPrinting().create()
-            val toDoList = getListFromExample()
-            json = gson.toJson(toDoList.list)
+            val list = getListFromExample()
+            json = gson.toJson(list)
+            Log.d("Debug", "JSON: " + json)
         }
         file.writeText(json)
     }
@@ -82,11 +80,11 @@ class JsonService(val context: Context) {
         return File(folder, fileName)
     }
 
-    private fun getListFromExample(): ToDoList {
+    private fun getListFromExample(): List<Item> {
         val file = context.assets.open("example.json")
         val json = file.bufferedReader().use { it.readText() }
         val gson = GsonBuilder().create()
-        val list = gson.fromJson(json, ToDoList::class.java)
-        return list
+        val itemType = object : TypeToken<List<Item>>() {}.type
+        return gson.fromJson(json, itemType)
     }
 }

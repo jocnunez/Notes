@@ -10,8 +10,6 @@
       { "title": "Aceite", "check": true }
     ],
     "labels": [],
-    "scheduledDate": "",
-    "modificationDate": "",
     "creationDate": 1657089847702
   },
   {
@@ -20,7 +18,6 @@
     "check": true,
     "type": "basic",
     "scheduledDate": 1660732200000,
-    "modificationDate": "",
     "creationDate": 1657089877175
   },
   {
@@ -30,8 +27,6 @@
     "type": "media",
     "media": "file_example.mp3",
     "labels": [],
-    "scheduledDate": "",
-    "modificationDate": "",
     "creationDate": 1657089895375
   },
   {
@@ -41,8 +36,6 @@
     "type": "basic",
     "location": "28.16049620960289, -15.43497414106162",
     "labels": [],
-    "scheduledDate": "",
-    "modificationDate": "",
     "creationDate": 1657089912159
   }
 ]

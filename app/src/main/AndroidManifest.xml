@@ -16,7 +16,7 @@
             android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".config.ConfigActivity"
+            android:name=".views.config.ConfigActivity"
             android:exported="false" />
         <activity
             android:name=".list.ListActivity"

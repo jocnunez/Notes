@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.MenuItem
 import com.jocnunez.notes.R
-import com.jocnunez.notes.config.ConfigActivity
+import com.jocnunez.notes.views.config.ConfigActivity
 import com.jocnunez.notes.json.JsonActivity
 import com.jocnunez.notes.list.ListActivity
 import com.jocnunez.notes.login.LoginActivity
