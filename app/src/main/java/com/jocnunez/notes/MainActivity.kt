@@ -22,25 +22,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val config = ConfigService(this)
+        var defaultList:String? = null
 
         when (config.getSelectedStorage()) {
-            StorageTypes.FIREBASE ->
-                startActivity(Intent(this, LoginActivity::class.java))
-            else -> {
-                val defaultFile = config.getDefaultFileName()
-                if (defaultFile.isNullOrBlank()) {
-                    startActivity(Intent(this, JsonActivity::class.java))
-                } else {
-                    val intent = Intent(this, ListActivity::class.java)
-                    intent.putExtra("fileName", defaultFile)
-                    startActivity(intent)
+            StorageTypes.FIREBASE -> {
+                if (!Auth.ok) {
+                    //TODO: startActivity(Intent(this, LoginActivity::class.java))
+                    return
                 }
+                defaultList = config.getDefaultFirebaseNode()
+            }
+            else -> { //StorageTypes.LOCAL
+                defaultList = config.getDefaultFileName()
             }
         }
 
-        val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
+        if (defaultList.isNullOrBlank()) {
+            startActivity(Intent(this, JsonActivity::class.java))
+        } else {
+            startActivity(Intent(this, ListActivity::class.java))
+        }
+
+/*        val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
         val reference = database.getReference("message")
         reference.setValue("Goodbye World!")
-
+*/
     }
 }

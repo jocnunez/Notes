@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityJsonBinding
-import com.jocnunez.notes.json.JsonItem
-import com.jocnunez.notes.json.JsonService
+import com.jocnunez.notes.storage.JsonItem
+import com.jocnunez.notes.storage.JsonService
 import com.jocnunez.notes.menu.MenuHandler
 
 class JsonActivity : AppCompatActivity() {
@@ -75,7 +75,7 @@ class JsonActivity : AppCompatActivity() {
 
     private fun createJsonHandler() {
         val jsonService = JsonService(this)
-        jsonService.createJsonFile(
+        jsonService.createFirebaseNode(
             binding.jsonName.text.toString(),
             binding.exampleCheck.isChecked
         )

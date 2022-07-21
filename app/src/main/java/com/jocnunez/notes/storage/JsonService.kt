@@ -1,7 +1,9 @@
-package com.jocnunez.notes.json
+package com.jocnunez.notes.storage
 
 import android.content.Context
 import android.util.Log
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.jocnunez.notes.config.ConfigService
@@ -29,6 +31,16 @@ class JsonService(val context: Context) {
             Log.d("Debug", "JSON: " + json)
         }
         file.writeText(json)
+    }
+
+    fun createFirebaseNode(name: String, copyExample: Boolean) {
+        val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
+        val reference = database.getReference(name)
+        if (copyExample) {
+            reference.setValue(getListFromExample())
+        } else {
+            reference.setValue(emptyList<Item>())
+        }
     }
 
     fun readFileList():List<JsonItem> {
@@ -61,7 +73,7 @@ class JsonService(val context: Context) {
         }
     }
 
-    fun selectFile(list: List<JsonItem>, item:JsonItem) {
+    fun selectFile(list: List<JsonItem>, item: JsonItem) {
         val configService = ConfigService(context)
         configService.setDefaultFileName(item.name)
         list.forEach {

@@ -3,24 +3,36 @@ package com.jocnunez.notes.list
 import android.content.Context
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.jocnunez.notes.json.JsonService
+import com.jocnunez.notes.config.ConfigService
+import com.jocnunez.notes.entities.Note
+import com.jocnunez.notes.storage.JsonService
 import com.jocnunez.notes.list.item.Item
+import com.jocnunez.notes.storage.INotesRepository
+import com.jocnunez.notes.storage.StorageTypes
+import com.jocnunez.notes.storage.firebase.NotesRepositoryFirebase
+import com.jocnunez.notes.storage.local.NotesRepositoryLocal
 
 class ListService constructor(val context: Context) {
 
-    lateinit var toDoList:ToDoList
+    var notes:List<Note>
+    var notesRepository: INotesRepository
+
+    private var configService: ConfigService
 
     init {
-        getListFromFile()
-    }
+        val defaultId: String?
+        configService = ConfigService(context)
 
-    fun getListFromFile() {
-        val file = JsonService(context).getSelectedFile()
-        val json = file.inputStream().bufferedReader().use { it.readText() }
-
-        val gson = GsonBuilder().create()
-        val itemType = object : TypeToken<List<Item>>() {}.type
-        val list = gson.fromJson<List<Item>>(json, itemType)
-        toDoList = ToDoList(file.nameWithoutExtension, list)
+        when (configService.getSelectedStorage()) {
+            StorageTypes.FIREBASE -> {
+                notesRepository = NotesRepositoryFirebase(context)
+                defaultId = configService.getDefaultFirebaseNode()
+            }
+            StorageTypes.LOCAL -> {
+                notesRepository = NotesRepositoryLocal(context)
+                defaultId = configService.getDefaultFileName()
+            }
+        }
+        notes = notesRepository.readNotesById(defaultId!!)
     }
 }

@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.common.api.ApiException
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityLoginBinding
-import com.jocnunez.notes.firebase.FirebaseService
+import com.jocnunez.notes.storage.firebase.FirebaseService
 import com.jocnunez.notes.menu.MenuHandler
 
 class LoginActivity : AppCompatActivity() {

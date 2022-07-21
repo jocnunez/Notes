@@ -1,9 +1,10 @@
-package com.jocnunez.notes.list.item
+package com.jocnunez.notes.entities
 
-import java.text.SimpleDateFormat
+import com.jocnunez.notes.list.item.ItemTypes
+import com.jocnunez.notes.list.item.SubItem
 import java.time.Instant
 
-data class Item(
+data class Note (
     val title: String,
 
     val type: ItemTypes = ItemTypes.basic,
@@ -18,14 +19,4 @@ data class Item(
 
     val media: String? = null,
     val list: List<SubItem>? = emptyList()
-) {
-
-    fun getCreationDate():String {
-        return getFormattedDate(creationDate)
-    }
-
-    fun getFormattedDate(date: Long):String {
-        val format = SimpleDateFormat("dd-MM-yyyy")
-        return format.format(date)
-    }
-}
+)

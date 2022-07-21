@@ -1,4 +1,4 @@
-package com.jocnunez.notes.json
+package com.jocnunez.notes.storage
 
 class JsonItem(
     val name: String,
