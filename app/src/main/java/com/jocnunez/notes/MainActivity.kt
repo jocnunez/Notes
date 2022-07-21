@@ -3,6 +3,8 @@ package com.jocnunez.notes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.jocnunez.notes.config.ConfigService
 import com.jocnunez.notes.databinding.ActivityMainBinding
 import com.jocnunez.notes.views.listmanagement.JsonActivity
@@ -21,8 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         val config = ConfigService(this)
 
-        //when (config.getSelectedStorage()) {
-        when (StorageTypes.FIREBASE) {
+        when (config.getSelectedStorage()) {
             StorageTypes.FIREBASE ->
                 startActivity(Intent(this, LoginActivity::class.java))
             else -> {
@@ -36,10 +37,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-/*
+
         val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
         val reference = database.getReference("message")
         reference.setValue("Goodbye World!")
- */
+
     }
 }

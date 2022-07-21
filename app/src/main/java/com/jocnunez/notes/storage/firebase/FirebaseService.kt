@@ -1,4 +1,4 @@
-package com.jocnunez.notes.firebase
+package com.jocnunez.notes.storage.firebase
 
 import android.content.Context
 import android.util.Log
