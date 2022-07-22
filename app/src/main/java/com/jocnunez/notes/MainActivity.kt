@@ -3,6 +3,7 @@ package com.jocnunez.notes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.jocnunez.notes.config.ConfigService
@@ -26,8 +27,12 @@ class MainActivity : AppCompatActivity() {
 
         when (config.getSelectedStorage()) {
             StorageTypes.FIREBASE -> {
-                    //TODO: startActivity(Intent(this, LoginActivity::class.java))
-                defaultList = config.getDefaultFirebaseNode()
+                val user = FirebaseAuth.getInstance().currentUser
+                if (user == null) {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                } else {
+                    defaultList = config.getDefaultFirebaseNode()
+                }
             }
             else -> { //StorageTypes.LOCAL
                 defaultList = config.getDefaultFileName()

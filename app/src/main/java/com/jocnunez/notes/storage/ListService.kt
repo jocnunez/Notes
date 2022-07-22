@@ -1,4 +1,4 @@
-package com.jocnunez.notes.list
+package com.jocnunez.notes.storage
 
 import android.content.Context
 import com.google.gson.GsonBuilder
@@ -14,13 +14,14 @@ import com.jocnunez.notes.storage.local.NotesRepositoryLocal
 
 class ListService constructor(val context: Context) {
 
+    val defaultId: String?
+    var allList:List<String>
     var notes:List<Note>
     var notesRepository: INotesRepository
 
     private var configService: ConfigService
 
     init {
-        val defaultId: String?
         configService = ConfigService(context)
 
         when (configService.getSelectedStorage()) {
@@ -33,6 +34,7 @@ class ListService constructor(val context: Context) {
                 defaultId = configService.getDefaultFileName()
             }
         }
+        allList = notesRepository.readNotes()
         notes = notesRepository.readNotesById(defaultId!!)
     }
 }

@@ -8,42 +8,52 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityLoginBinding
 import com.jocnunez.notes.storage.firebase.FirebaseService
 import com.jocnunez.notes.menu.MenuHandler
 
-class LoginActivity : AppCompatActivity() {
+class LoginGoogleActivity : AppCompatActivity() {
     private lateinit var _binding:ActivityLoginBinding
     private val binding get() = _binding
     private val REQ_ONE_TAP = 1
     private var showOneTapUI = true
-
-    private val signInLauncher = registerForActivityResult(
-        FirebaseAuthUIActivityResultContract()
-    ) { res ->
-        this.onSignInResult(res)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.GoogleBuilder().build()
-        )
-
-        val signInIntent = AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setAvailableProviders(providers)
+/*        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
             .build()
-        signInLauncher.launch(signInIntent)
+
+        val googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+        startActivityForResult(googleSignInClient.signInIntent, 1)
+*/
+//        initFirebase()
+
+        val firebaseService = FirebaseService(this)
+
+        Log.d("Debug", "LOGIN ")
+
+        var resultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                try {
+                    val credential = firebaseService.oneTapClient.getSignInCredentialFromIntent(result.data)
+                    val idToken = credential.googleIdToken
+                    Log.d("Debug", "TOKEN: "+idToken.toString())
+                } catch (e: ApiException) {
+                    Log.d("Error", e.message.toString())
+                }
+            } else {
+                Log.d("Debug", "CODE: "+result.resultCode)
+            }
+        }
+
     }
 
 
@@ -61,20 +71,6 @@ class LoginActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-        val response = result.idpResponse
-        if (result.resultCode == RESULT_OK) {
-            val user = FirebaseAuth.getInstance().currentUser
-            //
-        } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
-        }
-    }
-
 
     // Firebase
     private fun initFirebase() {

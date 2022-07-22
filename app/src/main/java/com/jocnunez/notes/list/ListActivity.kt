@@ -2,19 +2,15 @@ package com.jocnunez.notes.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityListBinding
 import com.jocnunez.notes.entities.Note
-import com.jocnunez.notes.list.item.Item
 import com.jocnunez.notes.menu.MenuHandler
+import com.jocnunez.notes.storage.ListService
 
 class ListActivity : AppCompatActivity() {
     private lateinit var _binding:ActivityListBinding

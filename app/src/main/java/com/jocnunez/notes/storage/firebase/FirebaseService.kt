@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 import com.jocnunez.notes.R
 
 class FirebaseService(val context: Context) {
+
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
 
