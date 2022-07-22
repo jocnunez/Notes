@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.R
 import com.jocnunez.notes.databinding.ActivityListBinding
+import com.jocnunez.notes.entities.Note
 import com.jocnunez.notes.list.item.Item
 import com.jocnunez.notes.menu.MenuHandler
 
@@ -24,11 +25,11 @@ class ListActivity : AppCompatActivity() {
         _binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val list = ListService(this).toDoList.list
+        val list = ListService(this).notes
         val listAdapter = ListAdapter(
             list,
-            { item, pos -> moveHandler(item, pos) },
-            { item, pos -> editHandler(item, pos) }
+            { note, pos -> moveHandler(note, pos) },
+            { note, pos -> editHandler(note, pos) }
         )
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this)
@@ -46,11 +47,11 @@ class ListActivity : AppCompatActivity() {
         }*/
     }
 
-    private fun editHandler(item: Item, pos: Int) {
+    private fun editHandler(note: Note, pos: Int) {
 
     }
 
-    private fun moveHandler(item: Item, pos: Int) {
+    private fun moveHandler(note: Note, pos: Int) {
 
     }
 
@@ -70,8 +71,4 @@ class ListActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addItemToLayout(text: String) {
-        val textView = TextView(this)
-        textView.text = text
-    }
 }

@@ -26,10 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         when (config.getSelectedStorage()) {
             StorageTypes.FIREBASE -> {
-                if (!Auth.ok) {
                     //TODO: startActivity(Intent(this, LoginActivity::class.java))
-                    return
-                }
                 defaultList = config.getDefaultFirebaseNode()
             }
             else -> { //StorageTypes.LOCAL

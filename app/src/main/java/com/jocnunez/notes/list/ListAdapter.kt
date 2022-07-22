@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jocnunez.notes.databinding.ItemListBinding
+import com.jocnunez.notes.entities.Note
 import com.jocnunez.notes.list.item.Item
+import java.text.SimpleDateFormat
 
 class ListAdapter (
-    var list: List<Item>,
-    var moveHandler: ((item: Item, pos: Int) -> Unit),
-    var editHandler: ((item: Item, pos: Int) -> Unit)
+    var list: List<Note>,
+    var moveHandler: ((item: Note, pos: Int) -> Unit),
+    var editHandler: ((item: Note, pos: Int) -> Unit)
 ) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,7 +27,7 @@ class ListAdapter (
                 binding.title.text = this.title
                 binding.description.text = this.description
                 binding.checkbox.isChecked = this.check
-                binding.date.text = this.getCreationDate()
+                binding.date.text = getFormattedDate(this.creationDate)
                 binding.editButton.setOnClickListener { editHandler(this, position) }
             }
         }
@@ -33,5 +35,10 @@ class ListAdapter (
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private fun getFormattedDate(date: Long):String {
+        val format = SimpleDateFormat("dd-MM-yyyy")
+        return format.format(date)
     }
 }

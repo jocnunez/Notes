@@ -14,34 +14,7 @@ class JsonService(val context: Context) {
     private val folderName = "jsons"
     private val fileExtension = ".json"
 
-    fun createJsonFile(name: String, copyExample: Boolean) {
-        //TODO validate name, validate if file exists ...
-        val folder = File(context.filesDir, folderName)
-        folder.mkdir()
-        Log.d("Debug", "PATH: "+folder.path+" FILESDIR: "+context.filesDir )
 
-        val file = File(folder, name + fileExtension)
-        file.createNewFile()
-
-        var json = "[]"
-        if (copyExample) {
-            val gson = GsonBuilder().setPrettyPrinting().create()
-            val list = getListFromExample()
-            json = gson.toJson(list)
-            Log.d("Debug", "JSON: " + json)
-        }
-        file.writeText(json)
-    }
-
-    fun createFirebaseNode(name: String, copyExample: Boolean) {
-        val database = Firebase.database("https://jocnunez-notes-default-rtdb.europe-west1.firebasedatabase.app/")
-        val reference = database.getReference(name)
-        if (copyExample) {
-            reference.setValue(getListFromExample())
-        } else {
-            reference.setValue(emptyList<Item>())
-        }
-    }
 
     fun readFileList():List<JsonItem> {
         val files = mutableListOf<JsonItem>()
